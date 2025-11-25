@@ -1,0 +1,12 @@
+resource "aws_autoscaling_policy" "web_tier_cpu" {
+  name                   = "web-app-cpu-scaler"
+  autoscaling_group_name = aws_autoscaling_group.web-tier-asg.name
+  policy_type  = "TargetTrackingScaling"
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+    target_value = 40.0
+  }
+}
